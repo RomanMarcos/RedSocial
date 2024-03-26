@@ -1,5 +1,9 @@
+const { connection } = require('./database/connection');
 const express = require('express');
 const cors = require('cors');
+
+// DB Connection
+connection();
 
 // Express server creation
 const app = express();
