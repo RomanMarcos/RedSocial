@@ -18,8 +18,8 @@ export const Input: React.FC<InputProps> = (
       { username !== undefined && handleOnChangeUsername !== undefined && (
         <input 
           className='input'
-          type='email'
-          placeholder='Email'
+          type='text'
+          placeholder='Username'
           onChange={(e) => handleOnChangeUsername(e)}
           value={username}
         />
