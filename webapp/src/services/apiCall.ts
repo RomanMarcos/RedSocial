@@ -22,3 +22,13 @@ export const signup = async(username: string, email: string, password: string) =
       return { error }
     }
 }
+
+export const profile = async(id: string) => {
+  try {
+    const { data } = await axios.get(`${env.API_URL}/dashboard/profile/${id}`);
+    return { data }
+  } catch(err) {
+    const error: string = `There was an error trying to get user information: ${err}`;
+    return { error }
+  }
+}

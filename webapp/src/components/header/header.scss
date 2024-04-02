@@ -1,0 +1,36 @@
+.header__container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #007bff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999px;
+    color: #f1f1f1;
+}
+
+.container-lists__menu-list, .container-lists__list-end {
+    list-style: none;
+    display: flex;
+    font-style: none;
+    margin: 0;
+    font-size: 18px;
+}
+
+.menu-list__item, .list-end__item {
+    padding: 15px;
+}
+
+.menu-list__item:hover, .list-end__item:hover {
+    background-color: #005dc0;
+}
+
+.menu-list__link, .list-end__link {
+    color: white;
+    text-decoration: none;
+}
+
+.fa {
+    margin-right: 5px;
+}

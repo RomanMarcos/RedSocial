@@ -1,6 +1,5 @@
 const userModel = require('../models/user/User');
 const bcrypt = require('bcrypt');
-
 const jwt = require('../helpers/jwt');
 
 const login = async(req, res) => {
@@ -68,7 +67,35 @@ const signup = async(req, res) => {
 
 }
 
+const profile = async(req, res) => {
+    const {id} = req.params;
+
+    try {
+        const user = await userModel.findById(id);
+        
+        if (!user) {
+            return res.status(404).json({
+                status: 'Error',
+                message: 'The user does not exist'
+            });
+        }
+
+        return res.status(200).json({
+            status: 'Success',
+            user
+        });
+
+    } catch(error) {
+        return res.status(500).json({
+            status: 'Error',
+            message: 'There was an error trying to get the user by ID'
+        });
+    }
+
+}
+
 module.exports = {
     login,
-    signup
+    signup,
+    profile
 }
