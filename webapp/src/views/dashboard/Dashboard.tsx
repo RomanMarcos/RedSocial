@@ -1,7 +1,9 @@
-import React from 'react'
+import './dashboard.scss';
 
 export const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div className="header">
+      <span>Encabezado Flotante</span>
+    </div>
   )
 }

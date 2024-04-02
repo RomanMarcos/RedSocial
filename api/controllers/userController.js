@@ -1,8 +1,7 @@
 const userModel = require('../models/user/User');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
-const SECRET_KEY = 'sQ)gsF00<286';
+const jwt = require('../helpers/jwt');
 
 const login = async(req, res) => {
 
@@ -21,14 +20,13 @@ const login = async(req, res) => {
            return res.status(401).json({ error: `The password isn't correct. Please try again` });
         }
 
-        const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
+        const { token } = jwt.createToken(user);
 
         return res.status(200).json({
             status: 'Success',
             token: token
         })
     } catch (error) {
-        console.log("ERROR: ", error);
         res.status(500).json({ error: 'Internal server error' });
     }
 
@@ -39,7 +37,7 @@ const signup = async(req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        const user = await userModel.find({ email: email });
+        const user = await userModel.find({ email: email.toLowerCase() });
 
         if (user.length > 0) {
             return res.status(400).json({
@@ -47,7 +45,7 @@ const signup = async(req, res) => {
             })
         }
 
-        const token = jwt.sign({ email }, SECRET_KEY, { expiresIn: '1h' });
+        const { token } = jwt.createToken(user);
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const newUser = new userModel({username, email, password: hashedPassword});
