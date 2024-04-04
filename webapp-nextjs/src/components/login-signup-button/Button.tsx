@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps> = ({ modalText, modalLink, action, re
 
   return (
     <div className='flex w-full flex-col'>
-        <button className=' w-full p-3 bg-sky-400 text-white border-none rounded cursor-pointer transition-colors hover:bg-sky-800' 
+        <button className='w-full p-3 bg-sky-400 text-white border-none rounded cursor-pointer transition-colors hover:bg-sky-800' 
           onClick={(e) => handleButtonClick(e)}> 
           {action} 
         </button>

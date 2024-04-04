@@ -15,13 +15,3 @@ services:
     ports:
       - 3001:3001
     command: bash -c "npm install && npm start"
-  
-  webapp:
-    image: node:20.9.0
-    container_name: red-social-webapp
-    working_dir: /usr/src/index
-    volumes:
-      - ./webapp:/usr/src/index
-    ports:
-      - 5173:3000
-    command: bash -c "npm install && npm start"

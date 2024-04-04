@@ -5,6 +5,8 @@ import { login, signup } from '../../../services/apiCall'
 import { Input } from '../../../components/login-signup-input/Input'
 import { Button } from '../../../components/login-signup-button/Button'
 
+import { useRouter } from 'next/navigation';
+
 interface LoginProps {
   username?: string | undefined, 
   handleOnChangeUsername?: React.ChangeEventHandler<HTMLInputElement> | undefined
@@ -19,6 +21,8 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
   const [passwordError, setPasswordError] = useState(false);
   const [newUserError, setNewUserError] = useState(false);
   const [loginError, setLoginError] = useState(false);
+
+  const router = useRouter();
 
   const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -56,6 +60,7 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
 
       if (token) {
         sessionStorage.setItem('token', token);
+        router.push('/dashboard');
       } else {
         setLoginError(true);
         clearErrorMessageAfterDelay();
@@ -68,6 +73,7 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
 
       if (token) {
         sessionStorage.setItem('token', token);
+        router.push('/dashboard');
       } else {
         setNewUserError(true);
         clearErrorMessageAfterDelay();
@@ -89,7 +95,7 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className='flex flex-col items-center justify-center text-base p-5 shadow-md rounded w-80 m-0 bg-white'>
+      <div className='flex flex-col items-center justify-center text-base p-5 shadow-md rounded w-60 m-0 bg-white sm:w-80'>
 
         <Input
           username={username !== undefined ? username : undefined}
