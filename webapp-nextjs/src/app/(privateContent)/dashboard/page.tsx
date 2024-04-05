@@ -16,6 +16,8 @@ const Dashboard = () => {
     const [userPublications, setUserPublications] = useState([]);
     const [username, setUsername] = useState('');
 
+    const [newPublications, setNewPublications] = useState(false);
+
     useEffect(() => {
 
         const fetchUserData = async () => {
@@ -23,11 +25,16 @@ const Dashboard = () => {
             setUserInfo(user);
             setUserPublications(publications);
             setUsername(user.username);
+            setNewPublications(false);
         }
 
         fetchUserData();
 
-    }, []);
+    }, [newPublications]);
+
+    const handleNewPublications = () => {
+        setNewPublications(true);
+    }
 
     return (
         <div>
@@ -35,7 +42,7 @@ const Dashboard = () => {
                 <>
                 <UsernameContext.Provider value={username}>
                     <Header />
-                    <NewPublication />
+                    <NewPublication  handleNewPublications={handleNewPublications} />
                 </UsernameContext.Provider>
 
                 <UserPublicationsContext.Provider value={userPublications}>

@@ -4,7 +4,11 @@ import { UsernameContext } from '@/app/(privateContent)/dashboard/page';
 
 import { createPublication } from '@/services/apiCall';
 
-export const NewPublication = () => {
+interface NewPublicationsProps {
+    handleNewPublications: React.ChangeEventHandler<HTMLInputElement>
+}
+
+export const NewPublication: React.FC<NewPublicationsProps> = ({ handleNewPublications }) => {
 
     const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
     const [showTooltipImage, setShowTooltipImage] = useState(false);
@@ -24,10 +28,11 @@ export const NewPublication = () => {
         setshowPublishButton(!e.target.value);
     }
 
-    const handleFormSubmit = async(e: React.FormEvent) => {
+    const handleFormSubmit = async(e: any) => {
         e.preventDefault();
         if (textAreaRef.current !== null) {
             await createPublication(textAreaRef.current.value, inputRef.current.files[0]);
+            handleNewPublications(e);
         }
     }
 
