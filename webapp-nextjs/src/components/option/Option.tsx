@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { UsernameContext } from '@/app/(privateContent)/dashboard/page';
 
 export const Option = () => {
+    
+    const username = useContext(UsernameContext);
+
     return (
         <ul className='flex flex-row justify-center list-none'>
             <li className='p-2 text-white text-sm hover:cursor-pointer sm:text-base sm:p-3'>
-                <span>Hi, Marcos!</span>
+                <span>{`Hi, ${username}!`}</span>
             </li>
             <li className='p-2 text-white text-sm hover:bg-sky-800 cursor-pointer sm:text-base sm:p-3'>
                 <a href='#'>

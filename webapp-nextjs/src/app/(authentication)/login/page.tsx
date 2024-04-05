@@ -56,10 +56,11 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
     }
 
     if ( emailRegex.test(email) && passwordRegex.test(password) && username === undefined ) {
-      const { token } = await login(email, password);
+      const { token, user } = await login(email, password);
 
-      if (token) {
+      if (token && user) {
         sessionStorage.setItem('token', token);
+        sessionStorage.setItem('userId', user[0]._id);
         router.push('/dashboard');
       } else {
         setLoginError(true);
@@ -72,6 +73,7 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
       const { token } = await signup(username, email, password);
 
       if (token) {
+        //Could redirect to the login page instead of signup view (check if possible and if it's OK the idea)
         sessionStorage.setItem('token', token);
         router.push('/dashboard');
       } else {
