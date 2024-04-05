@@ -16,9 +16,6 @@ export const NewPublication: React.FC<NewPublicationsProps> = ({ handleNewPublic
 
     const username = useContext(UsernameContext);
 
-    const textAreaRef = useRef(null);
-    const inputRef = useRef(null);
-
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         setSelectedFile(file);
@@ -30,8 +27,8 @@ export const NewPublication: React.FC<NewPublicationsProps> = ({ handleNewPublic
 
     const handleFormSubmit = async(e: any) => {
         e.preventDefault();
-        if (textAreaRef.current !== null) {
-            await createPublication(textAreaRef.current.value, inputRef.current.files[0]);
+        if (e.target[0].value) {
+            await createPublication(e.target[0].value, e.target[1].files[0]);
             handleNewPublications(e);
         }
     }
@@ -40,7 +37,7 @@ export const NewPublication: React.FC<NewPublicationsProps> = ({ handleNewPublic
         <div className='flex justify-center mt-4'>
             <form onSubmit={(e) => handleFormSubmit(e)} className='flex flex-col w-4/5 bg-white rounded p-5'>
 
-                <input type='text' ref={textAreaRef} className="text-slate-700 placeholder:text-slate-500 placeholder:text-sm block
+                <input type='text' className="text-slate-700 placeholder:text-slate-500 placeholder:text-sm block
                     rounded-md py-2 pl-2 pr-3 focus:outline-none placeholder:overflow-hidden placeholder:text-ellipsis
                     w-full placeholder:sm:text-base"
                     placeholder={`${username}, What are you thinking today?`}
@@ -50,7 +47,6 @@ export const NewPublication: React.FC<NewPublicationsProps> = ({ handleNewPublic
 
                 <label className="w-auto mt-12 p-2 text-gray-800 cursor-pointer flex justify-start sm:w-16">
                     <input type="file" className="hidden"
-                        ref={inputRef}
                         onChange={handleFileChange}
                     />
 
