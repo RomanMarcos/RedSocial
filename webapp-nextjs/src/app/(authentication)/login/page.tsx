@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { login, signup } from '../../../services/apiCall'
 import { Input } from '../../../components/login-signup-input/Input'
 import { Button } from '../../../components/login-signup-button/Button'
@@ -23,6 +23,11 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
   const [loginError, setLoginError] = useState(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('token');
+    if (token) router.push('/dashboard');
+  }, []);
 
   const handleOnChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
