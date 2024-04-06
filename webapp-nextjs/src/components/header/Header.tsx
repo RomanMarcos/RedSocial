@@ -4,7 +4,7 @@ import { Option } from '../option/Option'
 
 export const Header = () => {
     return (
-        <div className='flex flex-row justify-around bg-sky-500 sm:justify-between'>
+        <div className='flex flex-row justify-around bg-white sm:justify-between'>
             <NavBar />
             <Option />
         </div>

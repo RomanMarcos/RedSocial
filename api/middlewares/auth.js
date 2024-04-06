@@ -6,7 +6,7 @@ const secret_key = libJwt.SECRET_KEY;
 
 const isAuthorized = (req, res, next) => {
 
-    if (!req.headers.authorization) {
+    if (!req.headers.authorization || req.headers.authorization === 'null') {
         return res.status(403).json({
             status: 'Error',
             message: 'The request does not have the authorization header'
