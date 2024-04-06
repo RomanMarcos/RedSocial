@@ -46,7 +46,7 @@ const Dashboard = () => {
                 </UsernameContext.Provider>
 
                 <UserPublicationsContext.Provider value={userPublications}>
-                    <Publications />
+                    <Publications handleNewPublications={handleNewPublications} />
                 </UserPublicationsContext.Provider>
                 </>
             ) : (

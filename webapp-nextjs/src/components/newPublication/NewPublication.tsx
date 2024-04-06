@@ -35,7 +35,7 @@ export const NewPublication: React.FC<NewPublicationsProps> = ({ handleNewPublic
 
     return (
         <div className='flex justify-center mt-4'>
-            <form onSubmit={(e) => handleFormSubmit(e)} className='flex flex-col w-4/5 bg-white rounded p-5'>
+            <form onSubmit={(e) => handleFormSubmit(e)} className='flex flex-col w-4/5 sm:w-4/6 bg-white rounded p-5'>
 
                 <input type='text' className="text-slate-700 placeholder:text-slate-500 placeholder:text-sm block
                     rounded-md py-2 pl-2 pr-3 focus:outline-none placeholder:overflow-hidden placeholder:text-ellipsis

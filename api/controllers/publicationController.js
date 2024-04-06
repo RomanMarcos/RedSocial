@@ -52,6 +52,32 @@ const createPublication = async (req, res) => {
 
 }
 
+const removePublication = (req, res) => {
+    try {
+        const { id } = req.params;
+
+        publicationModel.deleteOne({ _id: id })
+        .then(() => {
+            return res.status(200).json({
+                status: 'Success',
+                message: 'The publication was successfully removed from the database..'
+            });
+        })
+        .catch(() => {
+            return res.status(404).json({
+                status: 'Error',
+                message: 'There was an error trying to delete the publication..'
+            });
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: `Error -> ${error}`
+        });
+    }
+}
+
 module.exports = {
-    createPublication
+    createPublication,
+    removePublication
 }

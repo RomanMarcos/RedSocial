@@ -1,10 +1,14 @@
 import React from 'react'
 import { PublicationContent } from '../publicationContent/PublicationContent'
 
-export const Publications = () => {
+interface PublicationsProps {
+  handleNewPublications: React.ChangeEventHandler<HTMLInputElement>
+}
+
+export const Publications: React.FC<PublicationsProps> = ({ handleNewPublications }) => {
   return (
     <div className='flex justify-center'>
-        <PublicationContent />
+        <PublicationContent handleNewPublications={handleNewPublications} />
     </div>
   )
 }

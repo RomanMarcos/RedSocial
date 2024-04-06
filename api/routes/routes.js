@@ -25,5 +25,6 @@ router.get('/dashboard/profile/:id', auth.isAuthorized, userController.profile);
 
 // Publication endpoints
 router.post('/dashboard/newPublication', auth.isAuthorized, upload.single('file'), publicationController.createPublication);
+router.post('/dashboard/removePublication/:id', auth.isAuthorized, publicationController.removePublication);
 
 module.exports = router;

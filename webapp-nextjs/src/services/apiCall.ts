@@ -58,17 +58,31 @@ export const createPublication = async (content: string, file: any) => {
       formData.append('file', file);
       formData.append('fileName', file.name);
     }
-    
+
     formData.append('content', content);
     formData.append('userId', userId);
 
-    const { data } = await axios.post(`${API_URL}/dashboard/newPublication`, formData,
+    await axios.post(`${API_URL}/dashboard/newPublication`, formData,
       {
         headers: {
           Authorization: `${token}`
         }
       });
 
+  } catch (error) {
+    console.log("ERROR > ", error);
+  }
+}
+
+export const removePublication = async (id: string) => {
+  try {
+    const token = sessionStorage.getItem('token') || '';
+    await axios.post(`${API_URL}/dashboard/removePublication/${id}`, {},
+      {
+        headers: {
+          Authorization: `${token}`
+        }
+      });
   } catch (error) {
     console.log("ERROR > ", error);
   }
