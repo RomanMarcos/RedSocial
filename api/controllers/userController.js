@@ -111,18 +111,21 @@ const getUsers = async (req, res) => {
             });
         }
 
-        const users = await userModel.find({ email: { $ne: user.email } });
+        const excludedIds = user.follows.map((element) => {
+            return element.userId
+        })
 
-        if (!users) {
-            return res.status(200).json({
-                status: 'Success',
-                message: 'No users found'
-            });
-        }
+        const filteredArray = excludedIds.filter((elemento, indice, excludedIds) => {
+            return excludedIds.indexOf(elemento) === indice;
+        });
+
+        const usersToFollow = await userModel.find({ email: { $ne: user.email }, _id: { $nin: filteredArray } });
+        const followedUsers = await userModel.find({ email: { $ne: user.email }, _id: { $in: filteredArray } });
 
         return res.status(200).json({
             status: 'Success',
-            users
+            usersToFollow,
+            followedUsers
         });
 
     } catch (error) {
@@ -133,9 +136,65 @@ const getUsers = async (req, res) => {
     }
 }
 
+const followUser = async(req, res) => {
+    try {
+        const { userId } = req.params; // This ID is of the user that is dispatching the action of follow to another user
+        const { id } = req.body; // This ID is the one related to the user that will be followed
+
+        await userModel.findOneAndUpdate({ _id: userId }, { $push: { follows: { userId: id } } })
+        .then((userToUpdate) => {
+            return res.status(200).json({
+                status: 'Success',
+                message: 'User updated successfully'
+            });
+        })
+        .catch(() => {
+            return res.status(404).json({
+                status: 'Error',
+                message: `User not found..`
+            });
+        });
+
+    } catch(error) {
+        return res.status(500).json({
+            status: 'Error',
+            message: `There was an error trying to follow the new user: ${error}`
+        });
+    }
+}
+
+const unFollowUser = async(req, res) => {
+    try {
+        const { userId } = req.params; // This ID is of the user that is dispatching the action of un-follow to another user
+        const { id } = req.body; // This ID is the one related to the user that will be un-followed
+
+        await userModel.findOneAndUpdate({ _id: userId }, { $pull: { follows: { userId: id } } })
+        .then((userToUpdate) => {
+            return res.status(200).json({
+                status: 'Success',
+                message: 'User updated successfully'
+            });
+        })
+        .catch(() => {
+            return res.status(404).json({
+                status: 'Error',
+                message: `User not found..`
+            });
+        });
+
+    } catch(error) {
+        return res.status(500).json({
+            status: 'Error',
+            message: `There was an error trying to follow the new user: ${error}`
+        });
+    }
+}
+
 module.exports = {
     login,
     signup,
     profile,
-    getUsers
+    getUsers,
+    followUser,
+    unFollowUser
 }

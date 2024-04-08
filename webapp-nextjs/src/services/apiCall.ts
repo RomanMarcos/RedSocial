@@ -49,18 +49,52 @@ export const getUsers = async() => {
   try {
     const token = sessionStorage.getItem('token');
     const userId = sessionStorage.getItem('userId');
-    
+
     const { data } = await axios.get(`${API_URL}/dashboard/users/${userId}`, {
       headers: {
         Authorization: `${token}`
       }
     });
 
-    const { users } = data;
+    const {  usersToFollow, followedUsers } = data;
 
-    return users;
+    return { usersToFollow, followedUsers };
   } catch (err) {
     const error: string = `There was an error trying to get users: ${err}`;
+    return { error }
+  }
+}
+
+export const followUser = async(id: string) => {
+  try {
+    const token = sessionStorage.getItem('token') || '';
+    const userId = sessionStorage.getItem('userId') || '';
+    const { data } = await axios.post(`${API_URL}/dashboard/followUser/${userId}`, { id }, {
+      headers: {
+        Authorization: `${token}`
+      }
+    });
+    
+    return { data }
+  } catch (err) {
+    const error: string = `There was an error trying to login: ${err}`;
+    return { error }
+  }
+}
+
+export const unFollowUser = async(id: string) => {
+  try {
+    const token = sessionStorage.getItem('token') || '';
+    const userId = sessionStorage.getItem('userId') || '';
+    const { data } = await axios.post(`${API_URL}/dashboard/unFollowUser/${userId}`, { id }, {
+      headers: {
+        Authorization: `${token}`
+      }
+    });
+    
+    return { data }
+  } catch (err) {
+    const error: string = `There was an error trying to login: ${err}`;
     return { error }
   }
 }

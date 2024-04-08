@@ -78,9 +78,7 @@ const Login: React.FC<LoginProps> = ({ username, handleOnChangeUsername }) => {
       const { token } = await signup(username, email, password);
 
       if (token) {
-        //Could redirect to the login page instead of signup view (check if possible and if it's OK the idea)
-        sessionStorage.setItem('token', token);
-        router.push('/dashboard');
+        router.push('/login');
       } else {
         setNewUserError(true);
         clearErrorMessageAfterDelay();
