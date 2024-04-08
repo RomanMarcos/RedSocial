@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { File } from 'buffer';
 
 const API_URL: string = 'http://localhost:3001/api';
 
@@ -42,6 +41,26 @@ export const getUserInfo = async () => {
     return { user, publications }
   } catch (err) {
     const error: string = `There was an error trying to create new user: ${err}`;
+    return { error }
+  }
+}
+
+export const getUsers = async() => {
+  try {
+    const token = sessionStorage.getItem('token');
+    const userId = sessionStorage.getItem('userId');
+    
+    const { data } = await axios.get(`${API_URL}/dashboard/users/${userId}`, {
+      headers: {
+        Authorization: `${token}`
+      }
+    });
+
+    const { users } = data;
+
+    return users;
+  } catch (err) {
+    const error: string = `There was an error trying to get users: ${err}`;
     return { error }
   }
 }

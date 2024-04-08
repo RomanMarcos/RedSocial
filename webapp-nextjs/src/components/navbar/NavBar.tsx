@@ -5,13 +5,13 @@ export const NavBar = () => {
         <>
             <ul className='hidden sm:flex flex-row justify-center list-none'>
                 <li className='p-3 text-slate-500 cursor-pointer hover:text-slate-900'>
-                    <a href='#'>
+                    <a href='/dashboard'>
                         <i className="fa fa-home mr-1"></i>
                         <span>Home</span>
                     </a>
                 </li>
                 <li className='p-3 text-slate-500 cursor-pointer hover:text-slate-900'>
-                    <a href='#'>
+                    <a href='/users'>
                         <i className="fa fa-user-plus mr-1"></i>
                         <span>Follows</span>
                     </a>

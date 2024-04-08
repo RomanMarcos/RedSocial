@@ -46,8 +46,8 @@ const Dashboard = () => {
             ) : (
                 userInfo ? (
                     <>
+                        <Header />
                         <UsernameContext.Provider value={username}>
-                            <Header />
                             <NewPublication handleNewPublications={handleNewPublications} />
                         </UsernameContext.Provider>
 

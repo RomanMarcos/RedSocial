@@ -28,7 +28,7 @@ const login = async (req, res) => {
             user: user
         })
     } catch (error) {
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: `Internal server error: ${error}` });
     }
 
 }
@@ -99,8 +99,43 @@ const profile = async (req, res) => {
 
 }
 
+const getUsers = async (req, res) => {
+    try {
+
+        const { id } = req.params;
+        const user = await userModel.findById(id);
+        if (!user) {
+            return res.status(404).json({
+                status: 'Error',
+                message: 'The user does not exist'
+            });
+        }
+
+        const users = await userModel.find({ email: { $ne: user.email } });
+
+        if (!users) {
+            return res.status(200).json({
+                status: 'Success',
+                message: 'No users found'
+            });
+        }
+
+        return res.status(200).json({
+            status: 'Success',
+            users
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            status: 'Error',
+            message: 'There was an error trying to get users'
+        });
+    }
+}
+
 module.exports = {
     login,
     signup,
-    profile
+    profile,
+    getUsers
 }

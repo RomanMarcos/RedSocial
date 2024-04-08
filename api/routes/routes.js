@@ -22,6 +22,7 @@ const upload = multer({ storage: storage });
 router.post('/login', userController.login);
 router.post('/signup', userController.signup);
 router.get('/dashboard/profile/:id', auth.isAuthorized, userController.profile);
+router.get('/dashboard/users/:id', auth.isAuthorized, userController.getUsers)
 
 // Publication endpoints
 router.post('/dashboard/newPublication', auth.isAuthorized, upload.single('file'), publicationController.createPublication);
