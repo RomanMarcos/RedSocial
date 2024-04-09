@@ -82,7 +82,17 @@ const profile = async (req, res) => {
             });
         }
 
-        const userPublications = await publicationModel.find({ userId: id }).sort({created_at: -1});
+        const followedUsersId = user.follows.map((element) => {
+            return element.userId
+        })
+
+        const filteredArray = followedUsersId.filter((elemento, indice, followedUsersId) => {
+            return followedUsersId.indexOf(elemento) === indice;
+        });
+
+        const userPublications = await publicationModel
+        .find({ $or: [{ userId: id }, { userId: { $in: filteredArray } }] })
+        .sort({created_at: -1});
 
         return res.status(200).json({
             status: 'Success',
