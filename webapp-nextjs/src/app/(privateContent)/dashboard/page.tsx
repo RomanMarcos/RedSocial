@@ -31,7 +31,12 @@ const Dashboard = () => {
             setIsLoading(false);
         }
 
-        fetchUserData();
+        const token = sessionStorage.getItem('token');
+        if ( token ) {
+            fetchUserData();
+        } else {
+            setIsLoading(false);
+        }
 
     }, [newPublications]);
 

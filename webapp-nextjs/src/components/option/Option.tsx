@@ -1,6 +1,16 @@
+'use client'
 import React from 'react'
+import { useRouter } from 'next/navigation';
 
 export const Option = () => {
+
+    const router = useRouter();
+
+    const handleLogout = () => {
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('userId');
+        router.push('/');
+    }
 
     return (
         <ul className='flex flex-row justify-center list-none'>
@@ -11,10 +21,10 @@ export const Option = () => {
                 </a>
             </li>
             <li className='p-2 text-slate-500 text-sm hover:text-slate-900 cursor-pointer sm:text-base'>
-                <a href='#'>
+                <button onClick={handleLogout}>
                     <i className="fa fa-arrow-down mr-1"></i>
                     <span>Logout</span>
-                </a>
+                </button>
             </li>
         </ul>
     )
