@@ -8,6 +8,8 @@ import { removePublication } from '@/services/apiCall';
 
 import { format } from 'date-fns';
 
+const API_URL = 'http://localhost:3001/api';
+
 interface PublicationContentProps {
     handleNewPublications: React.ChangeEventHandler<HTMLInputElement>
 }
@@ -50,7 +52,7 @@ export const PublicationContent: React.FC<PublicationContentProps> = ({ handleNe
 
                             {publication.image && (
                                 <div className='mt-4 flex justify-center'>
-                                    <img className='rounded w-4/5 h-40 sm:h-96' src={`${publication.image}`} alt='publication image' />
+                                    <img className='rounded w-4/5 h-40 sm:h-96' src={`${API_URL}/image/${publication.image}`} alt='publication image' />
                                 </div>
                             )}
 

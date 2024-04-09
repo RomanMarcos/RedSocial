@@ -3,6 +3,7 @@ const router = express.Router();
 
 const userController = require('../controllers/userController');
 const publicationController = require('../controllers/publicationController');
+const imageController = require('../controllers/imageController');
 const auth = require('../middlewares/auth');
 
 const multer = require('multer');
@@ -29,5 +30,8 @@ router.post('/dashboard/unFollowUser/:userId', auth.isAuthorized, userController
 // Publication endpoints
 router.post('/dashboard/newPublication', auth.isAuthorized, upload.single('file'), publicationController.createPublication);
 router.post('/dashboard/removePublication/:id', auth.isAuthorized, publicationController.removePublication);
+
+// Image endpoint
+router.get('/image/:file', imageController.image);
 
 module.exports = router;
