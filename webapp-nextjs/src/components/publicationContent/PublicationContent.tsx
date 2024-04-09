@@ -2,13 +2,11 @@ import React, { useContext, useState } from 'react'
 
 import { UserPublicationsContext } from '@/app/(privateContent)/dashboard/page'
 import { PublicationIcons } from '../publicationIcons/PublicationIcons';
-
-
 import { removePublication } from '@/services/apiCall';
+import formatDate from '../../helper/dateFormatter';
 
-import { format } from 'date-fns';
 
-const API_URL = 'http://localhost:3001/api';
+const API_URL: string = 'http://localhost:3001/api';
 
 interface PublicationContentProps {
     handleNewPublications: React.ChangeEventHandler<HTMLInputElement>
@@ -17,7 +15,7 @@ interface PublicationContentProps {
 export const PublicationContent: React.FC<PublicationContentProps> = ({ handleNewPublications }) => {
 
     const publications = useContext(UserPublicationsContext);
-    const userId = sessionStorage.getItem('userId');
+    const userId: string | null = sessionStorage.getItem('userId');
 
     const handleRemovePublication = async (id: string, e: any) => {
         await removePublication(id);
@@ -41,7 +39,9 @@ export const PublicationContent: React.FC<PublicationContentProps> = ({ handleNe
 
                             <div className='flex justify-start items-center'>
                                 <img className='mr-2 rounded-full w-12 h-12 sm:w-16 sm:h-16' src='default.jpg' alt='user-image' />
-                                <span className='text-base text-slate-500'>{publication.author}</span>
+                                <span className='text-base text-slate-500'>{publication.author} 
+                                    <p className='text-sm text-slate-800'>{formatDate(publication.created_at)}</p>
+                                </span>
                             </div>
 
                             <div className='mt-4 flex justify-start'>
