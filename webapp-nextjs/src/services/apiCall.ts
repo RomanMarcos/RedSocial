@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL: string = 'http://localhost:3001/api';
+const API_URL: string = 'http://localhost:3000/api';
 
 export const login = async (email: string, password: string) => {
   try {
@@ -30,7 +30,7 @@ export const getUserInfo = async () => {
     const token = sessionStorage.getItem('token');
     const userId = sessionStorage.getItem('userId');
 
-    const { data } = await axios.get(`${API_URL}/dashboard/profile/${userId}`, {
+    const { data } = await axios.get(`${API_URL}/profile/${userId}`, {
       headers: {
         Authorization: `${token}`
       }
@@ -50,7 +50,7 @@ export const getUsers = async() => {
     const token = sessionStorage.getItem('token');
     const userId = sessionStorage.getItem('userId');
 
-    const { data } = await axios.get(`${API_URL}/dashboard/users/${userId}`, {
+    const { data } = await axios.get(`${API_URL}/users/${userId}`, {
       headers: {
         Authorization: `${token}`
       }
@@ -69,7 +69,7 @@ export const followUser = async(id: string) => {
   try {
     const token = sessionStorage.getItem('token') || '';
     const userId = sessionStorage.getItem('userId') || '';
-    const { data } = await axios.post(`${API_URL}/dashboard/followUser/${userId}`, { id }, {
+    const { data } = await axios.post(`${API_URL}/followUser/${userId}`, { id }, {
       headers: {
         Authorization: `${token}`
       }
@@ -86,7 +86,7 @@ export const unFollowUser = async(id: string) => {
   try {
     const token = sessionStorage.getItem('token') || '';
     const userId = sessionStorage.getItem('userId') || '';
-    const { data } = await axios.post(`${API_URL}/dashboard/unFollowUser/${userId}`, { id }, {
+    const { data } = await axios.post(`${API_URL}/unFollowUser/${userId}`, { id }, {
       headers: {
         Authorization: `${token}`
       }
@@ -115,7 +115,7 @@ export const createPublication = async (content: string, file: any) => {
     formData.append('content', content);
     formData.append('userId', userId);
 
-    await axios.post(`${API_URL}/dashboard/newPublication`, formData,
+    await axios.post(`${API_URL}/newPublication`, formData,
       {
         headers: {
           Authorization: `${token}`

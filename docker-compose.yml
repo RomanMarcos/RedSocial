@@ -6,12 +6,12 @@ services:
     ports: 
       - 27017:27017
 
-  api:
+  api-nestjs:
     image: node:20.9.0
-    container_name: red-social-api
-    working_dir: /usr/index
+    container_name: red-social-api-nestjs
+    working_dir: /usr/main
     volumes:
-      - ./api:/usr/index
+      - ./api-nestjs:/usr/main
     ports:
-      - 3001:3001
-    command: bash -c "npm install && npm start"
+      - 3000:3000
+    command: bash -c "npm install && npm run start:dev"

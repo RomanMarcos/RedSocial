@@ -6,7 +6,7 @@ import { removePublication } from '@/services/apiCall';
 import formatDate from '../../helper/dateFormatter';
 
 
-const API_URL: string = 'http://localhost:3001/api';
+const API_URL: string = 'http://localhost:3000/api';
 
 interface PublicationContentProps {
     handleNewPublications: React.ChangeEventHandler<HTMLInputElement>
