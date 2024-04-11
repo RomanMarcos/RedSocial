@@ -105,17 +105,7 @@ export const createPublication = async (content: string, file: any) => {
     const token = sessionStorage.getItem('token') || '';
     const userId = sessionStorage.getItem('userId') || '';
 
-    const formData = new FormData();
-
-    if (file) {
-      formData.append('file', file);
-      formData.append('fileName', file.name);
-    }
-
-    formData.append('content', content);
-    formData.append('userId', userId);
-
-    await axios.post(`${API_URL}/newPublication`, formData,
+    await axios.post(`${API_URL}/newPublication`, {'file': file, 'fileName': file.name, 'content': content, 'userId': userId},
       {
         headers: {
           Authorization: `${token}`
@@ -130,7 +120,7 @@ export const createPublication = async (content: string, file: any) => {
 export const removePublication = async (id: string) => {
   try {
     const token = sessionStorage.getItem('token') || '';
-    await axios.post(`${API_URL}/dashboard/removePublication/${id}`, {},
+    await axios.post(`${API_URL}/removePublication/${id}`, {},
       {
         headers: {
           Authorization: `${token}`

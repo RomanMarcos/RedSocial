@@ -14,8 +14,10 @@ const mongoose_1 = require("@nestjs/mongoose");
 const user_schema_1 = require("./user.schema");
 const publication_schema_1 = require("../publication/publication.schema");
 const auth_middleware_middleware_1 = require("../auth-middleware/auth-middleware.middleware");
+const express = require('express');
 let UserModule = class UserModule {
     configure(consumer) {
+        consumer.apply(express.json(), express.urlencoded({ extended: true })).forRoutes({ path: '*', method: common_1.RequestMethod.ALL });
         consumer.apply(auth_middleware_middleware_1.AuthMiddlewareMiddleware).forRoutes('api/users/:id', 'api/profile/:id', 'api/followUser/:userId', 'api/unFollowUser/:userId');
     }
 };

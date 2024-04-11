@@ -10,16 +10,17 @@ exports.UploadMiddlewareMiddleware = void 0;
 const common_1 = require("@nestjs/common");
 const multer = require('multer');
 let UploadMiddlewareMiddleware = class UploadMiddlewareMiddleware {
-    use(next) {
+    use(req, res, next) {
         const storage = multer.diskStorage({
-            destination: function (file, cb) {
-                cb(null, './images/');
+            destination: function (req, file, cb) {
+                cb(null, '../images/');
             },
-            filename: function (file, cb) {
+            filename: function (req, file, cb) {
                 cb(null, file.originalname);
             }
         });
-        multer({ storage: storage });
+        const upload = multer({ storage: storage });
+        upload.single('file');
         next();
     }
 };

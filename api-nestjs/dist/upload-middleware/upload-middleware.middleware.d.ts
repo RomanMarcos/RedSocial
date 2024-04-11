@@ -1,5 +1,5 @@
 import { NestMiddleware } from '@nestjs/common';
 import { NextFunction } from 'express';
 export declare class UploadMiddlewareMiddleware implements NestMiddleware {
-    use(next: NextFunction): void;
+    use(req: any, res: any, next: NextFunction): void;
 }
